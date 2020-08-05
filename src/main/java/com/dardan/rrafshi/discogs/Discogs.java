@@ -2,10 +2,15 @@ package com.dardan.rrafshi.discogs;
 
 import java.io.IOException;
 
+import com.dardan.rrafshi.discogs.model.Currency;
+import com.dardan.rrafshi.discogs.model.Release;
+import com.dardan.rrafshi.discogs.model.Specification;
 import com.dardan.rrafshi.discogs.security.CredentialsAuthenticator;
 import com.dardan.rrafshi.discogs.security.TokenAuthenticator;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import okhttp3.Authenticator;
 import okhttp3.HttpUrl;
@@ -33,10 +38,62 @@ public final class Discogs
 	private Discogs(final Authenticator authenticator)
 	{
 		this.mapper = new ObjectMapper();
+		this.mapper.registerModule(new JavaTimeModule());
+		this.mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
 		this.client = new OkHttpClient.Builder()
 				.authenticator(authenticator)
 				.build();
+	}
+
+
+	public Specification getSpecification()
+		throws DiscogsException.RequestFailed
+	{
+		final HttpUrl url = HttpUrl.parse(Constants.API_URL);
+
+		try {
+			return this.get(url, Specification.class);
+
+		} catch(DiscogsException.RequestFailed | DiscogsException.MappingFailed exception) {
+
+			throw new DiscogsException.RequestFailed("Failed to get specification of the API", exception);
+		}
+	}
+
+	public Release getRelease(final long releaseID, final Currency currency)
+		throws DiscogsException.RequestFailed
+	{
+		final HttpUrl url = HttpUrl.parse(Constants.API_URL)
+				.newBuilder()
+				.addPathSegments(String.format(Endpoints.RELEASE_GET, releaseID))
+				.addQueryParameter(Constants.CURR_ABBR, currency.name())
+				.build();
+
+		try {
+			return this.get(url, Release.class);
+
+		} catch(DiscogsException.RequestFailed | DiscogsException.MappingFailed exception) {
+
+			throw new DiscogsException.RequestFailed("Failed to get release with ID '" + releaseID + "'", exception);
+		}
+	}
+
+	public Release getRelease(final long releaseID)
+		throws DiscogsException.RequestFailed
+	{
+		final HttpUrl url = HttpUrl.parse(Constants.API_URL)
+				.newBuilder()
+				.addPathSegments(String.format(Endpoints.RELEASE_GET, releaseID))
+				.build();
+
+		try {
+			return this.get(url, Release.class);
+
+		} catch(DiscogsException.RequestFailed | DiscogsException.MappingFailed exception) {
+
+			throw new DiscogsException.RequestFailed("Failed to get release with ID '" + releaseID + "'", exception);
+		}
 	}
 
 
