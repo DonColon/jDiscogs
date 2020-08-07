@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
+import com.dardan.rrafshi.commons.Strings;
 import com.dardan.rrafshi.discogs.model.Specification;
 import com.dardan.rrafshi.discogs.model.pagination.Direction;
 import com.dardan.rrafshi.discogs.model.pagination.Filter;
@@ -17,6 +18,7 @@ import com.dardan.rrafshi.discogs.model.release.MasterRelease;
 import com.dardan.rrafshi.discogs.model.release.Release;
 import com.dardan.rrafshi.discogs.model.release.SimpleRelease;
 import com.dardan.rrafshi.discogs.model.release.Version;
+import com.dardan.rrafshi.discogs.model.search.SearchResult;
 import com.dardan.rrafshi.discogs.security.CredentialsAuthenticator;
 import com.dardan.rrafshi.discogs.security.TokenAuthenticator;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -269,6 +271,51 @@ public final class Discogs
 
 			throw new DiscogsException.RequestFailed("Failed to get an labels releases with ID '" + labelID + "'", exception);
 		}
+	}
+
+
+	public SearchResult search(final String searchText, final PageRequest request, final List<Filter> filters)
+		throws DiscogsException.RequestFailed
+	{
+		final HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.API_URL)
+				.newBuilder()
+				.addPathSegments(Endpoints.DATABASE_SEARCH_GET)
+				.addQueryParameter(Constants.PAGE, String.valueOf(request.getPage()))
+				.addQueryParameter(Constants.PER_PAGE, String.valueOf(request.getSize()));
+
+		if(Strings.isNotBlank(searchText))
+			urlBuilder.addQueryParameter(Constants.QUERY, searchText);
+
+		if(!filters.isEmpty())
+			for(final Filter filter : filters)
+				for(final String value : filter.getValues())
+					urlBuilder.addQueryParameter(filter.getKey(), value);
+
+		final Sort sort = request.getSort();
+
+		if(!sort.isUnsorted()) {
+			final Direction direction = sort.getDirection();
+			urlBuilder.addQueryParameter(Constants.SORT_ORDER, direction.getValue());
+
+			for(final String property : sort.getProperties())
+				urlBuilder.addQueryParameter(Constants.SORT, property);
+		}
+
+		final HttpUrl url = urlBuilder.build();
+
+		try {
+			return this.get(url, SearchResult.class);
+
+		} catch(DiscogsException.RequestFailed | DiscogsException.MappingFailed exception) {
+
+			throw new DiscogsException.RequestFailed("Failed to get search result for query '" + searchText + "'", exception);
+		}
+	}
+
+	public SearchResult search(final String searchText, final PageRequest request)
+		throws DiscogsException.RequestFailed
+	{
+		return this.search(searchText, request, Collections.emptyList());
 	}
 
 

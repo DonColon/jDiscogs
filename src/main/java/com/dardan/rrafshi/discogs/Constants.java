@@ -16,6 +16,7 @@ public final class Constants
 	public static final String SORT_ORDER = "sort_order";
 
 	public static final String CURR_ABBR = "curr_abbr";
+	public static final String QUERY = "q";
 
 
 	private Constants() {}

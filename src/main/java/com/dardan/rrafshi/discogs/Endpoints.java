@@ -11,6 +11,8 @@ public final class Endpoints
 	public static final String LABEL_GET = "labels/%d";
 	public static final String LABEL_RELEASES_GET = "labels/%d/releases";
 
+	public static final String DATABASE_SEARCH_GET = "database/search";
+
 
 	private Endpoints() {}
 }
