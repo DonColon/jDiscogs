@@ -1,4 +1,4 @@
-package com.dardan.rrafshi.discogs.model;
+package com.dardan.rrafshi.discogs.model.release;
 
 public final class Identifier
 {
@@ -14,28 +14,13 @@ public final class Identifier
 		return this.type;
 	}
 
-	public void setType(final String type)
-	{
-		this.type = type;
-	}
-
 	public String getValue()
 	{
 		return this.value;
 	}
 
-	public void setValue(final String value)
-	{
-		this.value = value;
-	}
-
 	public String getDescription()
 	{
 		return this.description;
-	}
-
-	public void setDescription(final String description)
-	{
-		this.description = description;
 	}
 }

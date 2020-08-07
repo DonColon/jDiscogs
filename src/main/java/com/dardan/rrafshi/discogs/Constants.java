@@ -10,7 +10,13 @@ public final class Constants
 
 	public static final String KEY = "key";
 	public static final String SECRET = "secret";
+	public static final String PAGE = "page";
+	public static final String PER_PAGE = "per_page";
+	public static final String SORT = "sort";
+	public static final String SORT_ORDER = "sort_order";
+
 	public static final String CURR_ABBR = "curr_abbr";
+
 
 	private Constants() {}
 }

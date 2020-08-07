@@ -7,22 +7,22 @@ import com.dardan.rrafshi.commons.Systems;
 import com.dardan.rrafshi.discogs.Constants;
 import com.dardan.rrafshi.discogs.Discogs;
 import com.dardan.rrafshi.discogs.DiscogsException;
-import com.dardan.rrafshi.discogs.model.release.Release;
+import com.dardan.rrafshi.discogs.model.release.MasterRelease;
 
 
-public final class GetRelease
+public final class GetMasterRelease
 {
-	private static final Logger LOGGER = LoggerFactory.getLogger(GetRelease.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(GetMasterRelease.class);
 
 
 	public static void main(final String[] args)
 	{
 		final String apiKey = Systems.getEnvironmentVariable(Constants.DISCOGS_API_KEY);
-		final long releaseID = 249504;
+		final long masterID = 96559;
 
 		try {
 			final Discogs discogs = new Discogs(apiKey);
-			final Release release = discogs.getRelease(releaseID);
+			final MasterRelease release = discogs.getMasterRelease(masterID);
 
 			System.out.println(release.getTitle());
 			System.out.println(release.getYear());

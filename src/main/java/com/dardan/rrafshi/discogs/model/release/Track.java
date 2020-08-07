@@ -1,4 +1,4 @@
-package com.dardan.rrafshi.discogs.model;
+package com.dardan.rrafshi.discogs.model.release;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -20,19 +20,9 @@ public final class Track
 		return this.title;
 	}
 
-	public void setTitle(final String title)
-	{
-		this.title = title;
-	}
-
 	public String getDuration()
 	{
 		return this.duration;
-	}
-
-	public void setDuration(final String duration)
-	{
-		this.duration = duration;
 	}
 
 	public String getPosition()
@@ -40,18 +30,8 @@ public final class Track
 		return this.position;
 	}
 
-	public void setPosition(final String position)
-	{
-		this.position = position;
-	}
-
 	public String getType()
 	{
 		return this.type;
-	}
-
-	public void setType(final String type)
-	{
-		this.type = type;
 	}
 }

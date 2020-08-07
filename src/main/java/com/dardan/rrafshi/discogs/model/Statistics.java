@@ -14,28 +14,13 @@ public final class Statistics
 		return this.releases;
 	}
 
-	public void setReleases(final long releases)
-	{
-		this.releases = releases;
-	}
-
 	public long getArtists()
 	{
 		return this.artists;
 	}
 
-	public void setArtists(final long artists)
-	{
-		this.artists = artists;
-	}
-
 	public long getLabels()
 	{
 		return this.labels;
-	}
-
-	public void setLabels(final long labels)
-	{
-		this.labels = labels;
 	}
 }

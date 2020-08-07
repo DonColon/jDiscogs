@@ -1,4 +1,4 @@
-package com.dardan.rrafshi.discogs.model;
+package com.dardan.rrafshi.discogs.model.release;
 
 public final class Video
 {
@@ -18,19 +18,9 @@ public final class Video
 		return this.uri;
 	}
 
-	public void setUri(final String uri)
-	{
-		this.uri = uri;
-	}
-
 	public String getTitle()
 	{
 		return this.title;
-	}
-
-	public void setTitle(final String title)
-	{
-		this.title = title;
 	}
 
 	public String getDescription()
@@ -38,28 +28,13 @@ public final class Video
 		return this.description;
 	}
 
-	public void setDescription(final String description)
-	{
-		this.description = description;
-	}
-
 	public int getDuration()
 	{
 		return this.duration;
 	}
 
-	public void setDuration(final int duration)
-	{
-		this.duration = duration;
-	}
-
 	public boolean isEmbed()
 	{
 		return this.embed;
-	}
-
-	public void setEmbed(final boolean embed)
-	{
-		this.embed = embed;
 	}
 }

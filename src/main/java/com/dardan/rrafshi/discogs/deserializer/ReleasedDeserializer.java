@@ -3,6 +3,7 @@ package com.dardan.rrafshi.discogs.deserializer;
 import java.io.IOException;
 import java.time.YearMonth;
 
+import com.dardan.rrafshi.commons.Strings;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;
@@ -23,6 +24,6 @@ public final class ReleasedDeserializer extends JsonDeserializer<YearMonth>
 		final String released = root.asText();
 		final int index = released.lastIndexOf("-");
 
-		return YearMonth.parse(released.substring(0, index));
+		return YearMonth.parse(Strings.substring(released, 0, index));
 	}
 }

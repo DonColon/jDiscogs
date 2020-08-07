@@ -1,4 +1,4 @@
-package com.dardan.rrafshi.discogs.model;
+package com.dardan.rrafshi.discogs.model.release;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -24,19 +24,9 @@ public final class Artist
 		return this.id;
 	}
 
-	public void setID(final long id)
-	{
-		this.id = id;
-	}
-
 	public String getName()
 	{
 		return this.name;
-	}
-
-	public void setName(final String name)
-	{
-		this.name = name;
 	}
 
 	public String getResourceUrl()
@@ -44,19 +34,9 @@ public final class Artist
 		return this.resourceUrl;
 	}
 
-	public void setResourceUrl(final String resourceUrl)
-	{
-		this.resourceUrl = resourceUrl;
-	}
-
 	public String getJoin()
 	{
 		return this.join;
-	}
-
-	public void setJoin(final String join)
-	{
-		this.join = join;
 	}
 
 	public String getRole()
@@ -64,18 +44,8 @@ public final class Artist
 		return this.role;
 	}
 
-	public void setRole(final String role)
-	{
-		this.role = role;
-	}
-
 	public String getTracks()
 	{
 		return this.tracks;
-	}
-
-	public void setTracks(final String tracks)
-	{
-		this.tracks = tracks;
 	}
 }

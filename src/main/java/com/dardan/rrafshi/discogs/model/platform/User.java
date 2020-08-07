@@ -1,4 +1,4 @@
-package com.dardan.rrafshi.discogs.model;
+package com.dardan.rrafshi.discogs.model.platform;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -16,18 +16,8 @@ public final class User
 		return this.username;
 	}
 
-	public void setUsername(final String username)
-	{
-		this.username = username;
-	}
-
 	public String getResourceUrl()
 	{
 		return this.resourceUrl;
-	}
-
-	public void setResourceUrl(final String resourceUrl)
-	{
-		this.resourceUrl = resourceUrl;
 	}
 }

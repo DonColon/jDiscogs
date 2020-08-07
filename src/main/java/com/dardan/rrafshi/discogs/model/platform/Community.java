@@ -1,8 +1,9 @@
-package com.dardan.rrafshi.discogs.model;
+package com.dardan.rrafshi.discogs.model.platform;
 
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 public final class Community
 {
@@ -27,19 +28,9 @@ public final class Community
 		return this.have;
 	}
 
-	public void setHave(final int have)
-	{
-		this.have = have;
-	}
-
 	public int getWant()
 	{
 		return this.want;
-	}
-
-	public void setWant(final int want)
-	{
-		this.want = want;
 	}
 
 	public Rating getRating()
@@ -47,19 +38,9 @@ public final class Community
 		return this.rating;
 	}
 
-	public void setRating(final Rating rating)
-	{
-		this.rating = rating;
-	}
-
 	public User getSubmitter()
 	{
 		return this.submitter;
-	}
-
-	public void setSubmitter(final User submitter)
-	{
-		this.submitter = submitter;
 	}
 
 	public List<User> getContributors()
@@ -67,28 +48,13 @@ public final class Community
 		return this.contributors;
 	}
 
-	public void setContributors(final List<User> contributors)
-	{
-		this.contributors = contributors;
-	}
-
 	public String getStatus()
 	{
 		return this.status;
 	}
 
-	public void setStatus(final String status)
-	{
-		this.status = status;
-	}
-
 	public String getDataQuality()
 	{
 		return this.dataQuality;
-	}
-
-	public void setDataQuality(final String dataQuality)
-	{
-		this.dataQuality = dataQuality;
 	}
 }

@@ -22,19 +22,9 @@ public final class Specification
 		return this.message;
 	}
 
-	public void setMessage(final String message)
-	{
-		this.message = message;
-	}
-
 	public String getVersion()
 	{
 		return this.version;
-	}
-
-	public void setVersion(final String version)
-	{
-		this.version = version;
 	}
 
 	public String getDocumentationUrl()
@@ -42,18 +32,8 @@ public final class Specification
 		return this.documentationUrl;
 	}
 
-	public void setDocumentationUrl(final String documentationUrl)
-	{
-		this.documentationUrl = documentationUrl;
-	}
-
 	public Statistics getStatistics()
 	{
 		return this.statistics;
-	}
-
-	public void setStatistics(final Statistics statistics)
-	{
-		this.statistics = statistics;
 	}
 }

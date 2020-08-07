@@ -1,4 +1,4 @@
-package com.dardan.rrafshi.discogs.model;
+package com.dardan.rrafshi.discogs.model.release;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -27,19 +27,9 @@ public final class Label
 		return this.id;
 	}
 
-	public void setID(final long id)
-	{
-		this.id = id;
-	}
-
 	public String getName()
 	{
 		return this.name;
-	}
-
-	public void setName(final String name)
-	{
-		this.name = name;
 	}
 
 	public String getResourceUrl()
@@ -47,19 +37,9 @@ public final class Label
 		return this.resourceUrl;
 	}
 
-	public void setResourceUrl(final String resourceUrl)
-	{
-		this.resourceUrl = resourceUrl;
-	}
-
 	public String getCategoryNumber()
 	{
 		return this.categoryNumber;
-	}
-
-	public void setCategoryNumber(final String categoryNumber)
-	{
-		this.categoryNumber = categoryNumber;
 	}
 
 	public String getEntityType()
@@ -67,18 +47,8 @@ public final class Label
 		return this.entityType;
 	}
 
-	public void setEntityType(final String entityType)
-	{
-		this.entityType = entityType;
-	}
-
 	public String getEntityTypeName()
 	{
 		return this.entityTypeName;
-	}
-
-	public void setEntityTypeName(final String entityTypeName)
-	{
-		this.entityTypeName = entityTypeName;
 	}
 }

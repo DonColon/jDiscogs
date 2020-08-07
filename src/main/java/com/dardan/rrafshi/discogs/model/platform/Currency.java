@@ -1,6 +1,7 @@
-package com.dardan.rrafshi.discogs.model;
+package com.dardan.rrafshi.discogs.model.platform;
 
-public enum Currency {
+public enum Currency
+{
 	USD,
 	GBP,
 	EUR,

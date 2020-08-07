@@ -1,4 +1,4 @@
-package com.dardan.rrafshi.discogs.model;
+package com.dardan.rrafshi.discogs.model.release;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -22,19 +22,9 @@ public final class Image
 		return this.uri;
 	}
 
-	public void setUri(final String uri)
-	{
-		this.uri = uri;
-	}
-
 	public String getResourceUrl()
 	{
 		return this.resourceUrl;
-	}
-
-	public void setResourceUrl(final String resourceUrl)
-	{
-		this.resourceUrl = resourceUrl;
 	}
 
 	public int getWidth()
@@ -42,28 +32,13 @@ public final class Image
 		return this.width;
 	}
 
-	public void setWidth(final int width)
-	{
-		this.width = width;
-	}
-
 	public int getHeight()
 	{
 		return this.height;
 	}
 
-	public void setHeight(final int height)
-	{
-		this.height = height;
-	}
-
 	public String getType()
 	{
 		return this.type;
-	}
-
-	public void setType(final String type)
-	{
-		this.type = type;
 	}
 }

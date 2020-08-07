@@ -1,4 +1,4 @@
-package com.dardan.rrafshi.discogs.model;
+package com.dardan.rrafshi.discogs.model.release;
 
 import java.util.List;
 
@@ -20,28 +20,13 @@ public final class Format
 		return this.name;
 	}
 
-	public void setName(final String name)
-	{
-		this.name = name;
-	}
-
 	public int getQuantity()
 	{
 		return this.quantity;
 	}
 
-	public void setQuantity(final int quantity)
-	{
-		this.quantity = quantity;
-	}
-
 	public List<String> getDescriptions()
 	{
 		return this.descriptions;
-	}
-
-	public void setDescriptions(final List<String> descriptions)
-	{
-		this.descriptions = descriptions;
 	}
 }
