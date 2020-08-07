@@ -11,6 +11,8 @@ import com.dardan.rrafshi.discogs.model.pagination.Page;
 import com.dardan.rrafshi.discogs.model.pagination.PageRequest;
 import com.dardan.rrafshi.discogs.model.pagination.Sort;
 import com.dardan.rrafshi.discogs.model.platform.Currency;
+import com.dardan.rrafshi.discogs.model.release.Artist;
+import com.dardan.rrafshi.discogs.model.release.Label;
 import com.dardan.rrafshi.discogs.model.release.MasterRelease;
 import com.dardan.rrafshi.discogs.model.release.Release;
 import com.dardan.rrafshi.discogs.model.release.Version;
@@ -167,6 +169,40 @@ public final class Discogs
 		throws DiscogsException.RequestFailed
 	{
 		return this.getMasterReleaseVersions(masterID, request, Collections.emptyList());
+	}
+
+	public Artist getArtist(final long artistID)
+		throws DiscogsException.RequestFailed
+	{
+		final HttpUrl url = HttpUrl.parse(Constants.API_URL)
+				.newBuilder()
+				.addPathSegments(String.format(Endpoints.ARTIST_GET, artistID))
+				.build();
+
+		try {
+			return this.get(url, Artist.class);
+
+		} catch(DiscogsException.RequestFailed | DiscogsException.MappingFailed exception) {
+
+			throw new DiscogsException.RequestFailed("Failed to get artist with ID '" + artistID + "'", exception);
+		}
+	}
+
+	public Label getLabel(final long labelID)
+		throws DiscogsException.RequestFailed
+	{
+		final HttpUrl url = HttpUrl.parse(Constants.API_URL)
+				.newBuilder()
+				.addPathSegments(String.format(Endpoints.LABEL_GET, labelID))
+				.build();
+
+		try {
+			return this.get(url, Label.class);
+
+		} catch(DiscogsException.RequestFailed | DiscogsException.MappingFailed exception) {
+
+			throw new DiscogsException.RequestFailed("Failed to get label with ID '" + labelID + "'", exception);
+		}
 	}
 
 
