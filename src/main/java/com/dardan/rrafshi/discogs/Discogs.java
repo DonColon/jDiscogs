@@ -15,6 +15,7 @@ import com.dardan.rrafshi.discogs.model.release.Artist;
 import com.dardan.rrafshi.discogs.model.release.Label;
 import com.dardan.rrafshi.discogs.model.release.MasterRelease;
 import com.dardan.rrafshi.discogs.model.release.Release;
+import com.dardan.rrafshi.discogs.model.release.SimpleRelease;
 import com.dardan.rrafshi.discogs.model.release.Version;
 import com.dardan.rrafshi.discogs.security.CredentialsAuthenticator;
 import com.dardan.rrafshi.discogs.security.TokenAuthenticator;
@@ -76,6 +77,7 @@ public final class Discogs
 			throw new DiscogsException.RequestFailed("Failed to get specification of the API", exception);
 		}
 	}
+
 
 	public Release getRelease(final long releaseID, final Currency currency)
 		throws DiscogsException.RequestFailed
@@ -171,6 +173,7 @@ public final class Discogs
 		return this.getMasterReleaseVersions(masterID, request, Collections.emptyList());
 	}
 
+
 	public Artist getArtist(final long artistID)
 		throws DiscogsException.RequestFailed
 	{
@@ -188,6 +191,38 @@ public final class Discogs
 		}
 	}
 
+	public Page<SimpleRelease> getArtistReleases(final long artistID, final PageRequest request)
+		throws DiscogsException.RequestFailed
+	{
+		final HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.API_URL)
+				.newBuilder()
+				.addPathSegments(String.format(Endpoints.ARTIST_RELEASES_GET, artistID))
+				.addQueryParameter(Constants.PAGE, String.valueOf(request.getPage()))
+				.addQueryParameter(Constants.PER_PAGE, String.valueOf(request.getSize()));
+
+		final Sort sort = request.getSort();
+
+		if(!sort.isUnsorted()) {
+			final Direction direction = sort.getDirection();
+			urlBuilder.addQueryParameter(Constants.SORT_ORDER, direction.getValue());
+
+			for(final String property : sort.getProperties())
+				urlBuilder.addQueryParameter(Constants.SORT, property);
+		}
+
+		final HttpUrl url = urlBuilder.build();
+		final JavaType valueType = this.factory.constructParametricType(Page.class, SimpleRelease.class);
+
+		try {
+			return this.get(url, valueType);
+
+		} catch(DiscogsException.RequestFailed | DiscogsException.MappingFailed exception) {
+
+			throw new DiscogsException.RequestFailed("Failed to get an artists releases with ID '" + artistID + "'", exception);
+		}
+	}
+
+
 	public Label getLabel(final long labelID)
 		throws DiscogsException.RequestFailed
 	{
@@ -202,6 +237,37 @@ public final class Discogs
 		} catch(DiscogsException.RequestFailed | DiscogsException.MappingFailed exception) {
 
 			throw new DiscogsException.RequestFailed("Failed to get label with ID '" + labelID + "'", exception);
+		}
+	}
+
+	public Page<SimpleRelease> getLabelReleases(final long labelID, final PageRequest request)
+		throws DiscogsException.RequestFailed
+	{
+		final HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.API_URL)
+				.newBuilder()
+				.addPathSegments(String.format(Endpoints.LABEL_RELEASES_GET, labelID))
+				.addQueryParameter(Constants.PAGE, String.valueOf(request.getPage()))
+				.addQueryParameter(Constants.PER_PAGE, String.valueOf(request.getSize()));
+
+		final Sort sort = request.getSort();
+
+		if(!sort.isUnsorted()) {
+			final Direction direction = sort.getDirection();
+			urlBuilder.addQueryParameter(Constants.SORT_ORDER, direction.getValue());
+
+			for(final String property : sort.getProperties())
+				urlBuilder.addQueryParameter(Constants.SORT, property);
+		}
+
+		final HttpUrl url = urlBuilder.build();
+		final JavaType valueType = this.factory.constructParametricType(Page.class, SimpleRelease.class);
+
+		try {
+			return this.get(url, valueType);
+
+		} catch(DiscogsException.RequestFailed | DiscogsException.MappingFailed exception) {
+
+			throw new DiscogsException.RequestFailed("Failed to get an labels releases with ID '" + labelID + "'", exception);
 		}
 	}
 
