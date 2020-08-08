@@ -23,6 +23,11 @@ public final class PageRequest
 		this(page, size, Sort.by(direction, properties));
 	}
 
+	private PageRequest(final int page, final int size, final String... properties)
+	{
+		this(page, size, Sort.by(properties));
+	}
+
 	private PageRequest(final int page, final int size)
 	{
 		this(page, size, Sort.unsorted());
@@ -42,6 +47,11 @@ public final class PageRequest
 	public static PageRequest of(final int page, final int size, final Direction direction, final String... properties)
 	{
 		return new PageRequest(page, size, direction, properties);
+	}
+
+	public static PageRequest of(final int page, final int size, final String... properties)
+	{
+		return new PageRequest(page, size, properties);
 	}
 
 	public static PageRequest of(final int page, final int size)

@@ -20,6 +20,11 @@ public final class Sort
 		this.properties = properties;
 	}
 
+	private Sort(final List<String> properties)
+	{
+		this(DEFAULT_DIRECTION, properties);
+	}
+
 	private Sort(final Direction direction, final String... properties)
 	{
 		this(direction, Arrays.asList(properties));
@@ -27,13 +32,23 @@ public final class Sort
 
 	private Sort(final String... properties)
 	{
-		this(DEFAULT_DIRECTION, Arrays.asList(properties));
+		this(Arrays.asList(properties));
 	}
 
+
+	public static Sort by(final Direction direction, final List<String> properties)
+	{
+		return new Sort(direction, properties);
+	}
 
 	public static Sort by(final Direction direction, final String... properties)
 	{
 		return new Sort(direction, properties);
+	}
+
+	public static Sort by(final List<String> properties)
+	{
+		return new Sort(properties);
 	}
 
 	public static Sort by(final String... properties)

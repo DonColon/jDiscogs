@@ -17,6 +17,8 @@ public final class Pagination
 	@JsonProperty("pages")
 	private int totalPages;
 
+	private PageUrls urls;
+
 
 	public int getItemsPerPage()
 	{
@@ -36,5 +38,25 @@ public final class Pagination
 	public int getTotalPages()
 	{
 		return this.totalPages;
+	}
+
+	public String getFirst()
+	{
+		return this.urls.getFirst();
+	}
+
+	public String getLast()
+	{
+		return this.urls.getLast();
+	}
+
+	public String getPrevious()
+	{
+		return this.urls.getPrevious();
+	}
+
+	public String getNext()
+	{
+		return this.urls.getNext();
 	}
 }

@@ -38,6 +38,7 @@ public final class GetMasterReleaseVersions
 
 			final List<Version> content = page.getContent();
 
+			System.out.println(page.isFirstPage());
 			System.out.println(pagination.getTotalPages());
 			System.out.println(filters.getValueHelps());
 			System.out.println(filters.getAppliedFilters());
