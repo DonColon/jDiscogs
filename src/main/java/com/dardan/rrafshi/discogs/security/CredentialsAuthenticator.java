@@ -3,6 +3,7 @@ package com.dardan.rrafshi.discogs.security;
 import java.io.IOException;
 
 import com.dardan.rrafshi.discogs.Constants;
+import com.dardan.rrafshi.discogs.model.Credentials;
 
 import okhttp3.Authenticator;
 import okhttp3.HttpUrl;
@@ -13,14 +14,12 @@ import okhttp3.Route;
 
 public final class CredentialsAuthenticator implements Authenticator
 {
-	private final String key;
-	private final String secret;
+	private final Credentials credentials;
 
 
-	public CredentialsAuthenticator(final String key, final String secret)
+	public CredentialsAuthenticator(final Credentials credentials)
 	{
-		this.key = key;
-		this.secret = secret;
+		this.credentials = credentials;
 	}
 
 
@@ -30,8 +29,8 @@ public final class CredentialsAuthenticator implements Authenticator
 	{
 		final HttpUrl url = response.request().url()
 				.newBuilder()
-				.addQueryParameter(Constants.KEY, this.key)
-				.addQueryParameter(Constants.SECRET, this.secret)
+				.addQueryParameter(Constants.KEY, this.credentials.getKey())
+				.addQueryParameter(Constants.SECRET, this.credentials.getSecret())
 				.build();
 
 		return response.request()

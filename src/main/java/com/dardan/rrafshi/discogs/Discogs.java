@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 import com.dardan.rrafshi.commons.Strings;
+import com.dardan.rrafshi.discogs.model.AccessToken;
+import com.dardan.rrafshi.discogs.model.Credentials;
+import com.dardan.rrafshi.discogs.model.Identity;
 import com.dardan.rrafshi.discogs.model.Specification;
 import com.dardan.rrafshi.discogs.model.pagination.Direction;
 import com.dardan.rrafshi.discogs.model.pagination.Filter;
@@ -20,6 +23,7 @@ import com.dardan.rrafshi.discogs.model.release.SimpleRelease;
 import com.dardan.rrafshi.discogs.model.release.Version;
 import com.dardan.rrafshi.discogs.model.search.SearchResult;
 import com.dardan.rrafshi.discogs.security.CredentialsAuthenticator;
+import com.dardan.rrafshi.discogs.security.OAuthAuthenticator;
 import com.dardan.rrafshi.discogs.security.TokenAuthenticator;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
@@ -42,14 +46,29 @@ public final class Discogs
 	private final OkHttpClient client;
 
 
-	public Discogs(final String apiKey)
+	public Discogs(final String key, final String secret, final AccessToken token)
 	{
-		this(new TokenAuthenticator(apiKey));
+		this(Credentials.of(key, secret), token);
+	}
+
+	public Discogs(final Credentials credentials, final AccessToken token)
+	{
+		this(new OAuthAuthenticator(credentials, token));
 	}
 
 	public Discogs(final String key, final String secret)
 	{
-		this(new CredentialsAuthenticator(key, secret));
+		this(Credentials.of(key, secret));
+	}
+
+	public Discogs(final Credentials credentials)
+	{
+		this(new CredentialsAuthenticator(credentials));
+	}
+
+	public Discogs(final String apiKey)
+	{
+		this(new TokenAuthenticator(apiKey));
 	}
 
 	private Discogs(final Authenticator authenticator)
@@ -77,6 +96,23 @@ public final class Discogs
 		} catch(DiscogsException.RequestFailed | DiscogsException.MappingFailed exception) {
 
 			throw new DiscogsException.RequestFailed("Failed to get specification of the API", exception);
+		}
+	}
+
+	public Identity getIdentity()
+		throws DiscogsException.RequestFailed
+	{
+		final HttpUrl url = HttpUrl.parse(Constants.API_URL)
+				.newBuilder()
+				.addPathSegments(Endpoints.IDENTITY_GET)
+				.build();
+
+		try {
+			return this.get(url, Identity.class);
+
+		} catch(DiscogsException.RequestFailed | DiscogsException.MappingFailed exception) {
+
+			throw new DiscogsException.RequestFailed("Failed to get the identity of user", exception);
 		}
 	}
 
@@ -332,8 +368,10 @@ public final class Discogs
 			final String message = response.message();
 			final int code = response.code();
 
-			if(code != HttpStatus.OK)
-				throw new DiscogsException.RequestFailed("Request failed with status code '" + code + ": " + message);
+			if(code != HttpStatus.OK) {
+				final Error error = this.mapper.readValue(content, Error.class);
+				throw new DiscogsException.RequestFailed("Request failed with status code '" + code + ": " + message + " - " + error.getMessage());
+			}
 
 			return this.mapper.readValue(content, valueType);
 
@@ -358,8 +396,10 @@ public final class Discogs
 			final String message = response.message();
 			final int code = response.code();
 
-			if(code != HttpStatus.OK)
-				throw new DiscogsException.RequestFailed("Request failed with status code '" + code + ": " + message);
+			if(code != HttpStatus.OK) {
+				final Error error = this.mapper.readValue(content, Error.class);
+				throw new DiscogsException.RequestFailed("Request failed with status code '" + code + ": " + message + " - " + error.getMessage());
+			}
 
 			return this.mapper.readValue(content, valueType);
 
