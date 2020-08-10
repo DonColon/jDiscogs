@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.dardan.rrafshi</groupId>
-	<artifactId>jDiscogs</artifactId>
+	<artifactId>discogs</artifactId>
 	<version>1.0.0</version>
 
 	<name>jDiscogs</name>

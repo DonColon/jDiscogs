@@ -27,7 +27,7 @@ Then add the following Maven dependency to your project's pom.xml:
     ...
     <dependency>
         <groupId>com.dardan.rrafshi</groupId>
-	    <artifactId>jDiscogs</artifactId>
+	    <artifactId>discogs</artifactId>
 	    <version>1.0.0</version>
     </dependency>
     ...
