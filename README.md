@@ -8,7 +8,20 @@ Before you can use the library, ensure you have met the following requirements:
 - You have Maven Version 3.5.4 or later installed
 
 ## Installation
-In order to use this library add the following Maven dependency to your project's pom.xml:
+In order to use this library you have to specify my maven repository in your pom.xml.
+```xml
+<repositories>
+    ...
+    <repository>
+        <id>github</id>
+        <name>GitHub DonColon Apache Maven Packages</name>
+        <url>https://maven.pkg.github.com/doncolon/maven</url>
+    </repository>
+    ...
+</repositories>
+```
+
+Then add the following Maven dependency to your project's pom.xml:
 ```xml
 <dependencies>
     ...
@@ -20,18 +33,19 @@ In order to use this library add the following Maven dependency to your project'
     ...
 </dependencies>
 ```
+
 After that open your console in the project's directory and enter the following command:
 ```bash
 mvn clean install
 ```
+
 Maven should install all required dependencies and you can start using the library.
 
 ## Usage
 Instantiate a `Discogs` client object using the constructor that best fits your application's needs. Each constructor is for a different authentication method. With the client object you can call the API endpoints and retrieve the information as a java bean.
 
 ### Token Authorization
-This method is simpliest way to start with. You only have to pass the API key of your account to the client.
-
+This method is the simpliest way to start with. You only have to pass the API key of your account to the client.
 ```java
 final String apiKey = "<your_api_key>";
 final long releaseID = 249504;
@@ -46,7 +60,6 @@ System.out.println(release.getGenres());
 
 ### Credential Authorization
 This method uses the consumer credentials of your registered discogs application. So the access is only for the application.
-
 ```java
 final String consumerKey = "<your_consumer_key>";
 final String consumerSecret = "<your_consumer_secret>";
@@ -64,12 +77,11 @@ System.out.println(release.getGenres());
 You have to use this method in order to perform operations on behalf of a user. First you have to retrieve a request token. After that you need the permission of the user to get the access token. Therefore you have to redirect the user to the authentication url of Discogs. After the user gives the permission, he obtains a verifier code. Your application needs this verifier code and the request token in order to get the access token.  
 
 First you need to instantiate an `OAuthFlow` object. The constructor needs the consumer information (key + secret) to work. With the object you can retrieve the request and access token.
-
 ```java
 final String consumerKey = "<your_consumer_key>";
 final String consumerSecret = "<your_consumer_secret>";
 
-final OAuthFlow flow = new OAuthFlow(credentials);
+final OAuthFlow flow = new OAuthFlow(consumerKey, consumerSecret);
 final RequestToken requestToken = flow.getRequestToken();
 
 // Redirect the user to this url to get the verifier code
@@ -88,9 +100,9 @@ System.out.println(identity.getUsername());
 ```
 
 ## Examples
-In the package `com.dardan.rrafshi.discogs.examples` are some examples you can play with. In order to start the applications you need to one of the following things:
+In the package [com.dardan.rrafshi.discogs.examples](https://github.com/DonColon/jDiscogs/tree/master/src/main/java/com/dardan/rrafshi/discogs/examples) are some examples you can play with. In order to start the applications you need to do one of the following things:
 
-1. Store your authentication information in the environment variables `DISCOGS_API_KEY`, `DISCOGS_CONSUMER_KEY` an `DISCOGS_CONSUMER_SECRET`.
+1. Store your authentication information in the environment variables `DISCOGS_API_KEY`, `DISCOGS_CONSUMER_KEY` and `DISCOGS_CONSUMER_SECRET`.
 2. You can also just replace the `Systems.getEnvironmentVariable` statement with your authentication information.
 
 ## Contact
